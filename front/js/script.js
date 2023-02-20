@@ -20,27 +20,30 @@ fetch('http://localhost:3000/api/products')
 // : 1849
 // _id
 // : "107fb5b75607497b96722bda5b504926"
-function kanaps(kanap){
+function kanaps(data){
 // console.log(kanaps) ne pas commiter de console.log
-  const _id = kanap[0]._id
-  const imageUrl = kanap[0].imageUrl
-  const altTxt = kanap[0].altTxt
-  const name = kanap[0].name
-const description= kanap[0].description
-
+for (let i = 0; i < data.length; i++) {
+  const kanap = data[i];
+  const _id = kanap._id;
+  const imageUrl = kanap.imageUrl;
+  const altTxt = kanap.altTxt;
+  const name = kanap.name;
+  const description = kanap.description;
+  
   const image = makeImage(imageUrl, altTxt)
-  cont anchor = makeAnchor(_id)
+  const anchor = makeAnchor(_id)
   // ce anchor est propre à cette fonction
   const article = makeArticle()
   const h3 = makeH3(name)
-const p = makeParagraph(description)
-
+  const p = makeParagraph(description)
+  
   article.appendChild(image)
   article.appendChild(h3)
-  article.appendchild(p)
+  article.appendChild(p)
   appendArticleToAnchor(anchor,article)
   // utiliser f2 pour renommer tout les mêmes élements
   }
+}
 function makeAnchor(id){
   // pour faire appel à l'url makeAnchor(imargeUrl) vu qu'il est dans une autre fonction
   const anchor = document.createElement("a")
@@ -55,7 +58,7 @@ function appendArticleToAnchor(anchor,article){
   if (items != null) {
     // "f".appendchild pour selectionner l'enfant d'un element
     items.appendChild(anchor)
-    anchor.appenchild(article)
+    anchor.appendChild(article)
   }
 }
 
@@ -66,22 +69,23 @@ function makeImage (imageUrl, altTxt) {
   // je ne sais pas si c'est nécessaire qu'il y en ait ou non ?
   image.removeAttribute("title")
   image.removeAttribute("style")
+  return image
 }
 function makeArticle(){
   const article = document.createElement("article")
   return article
 }
 function makeH3(name){
-  document.createElement("h3")
-  h3.texteContent = name
+  const h3 = document.createElement("h3")
+  h3.textContent = name
   // ajout de la class pour h3 .productName
   h3.classList.add("productName")
   return h3
 }
 function makeParagraph(description){
   const p = document.createElement("p")
-  p.texteContent = description
-  p.classlist.add("productDescription")
+  p.textContent = description
+  p.classList.add("productDescription")
   return p
 
 }
