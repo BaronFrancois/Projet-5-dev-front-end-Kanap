@@ -65,9 +65,11 @@ function makeColors(colors){
   // select = menu déroulant
   const select = document.querySelector("#colors")
   if (select != null) {
-    const option = document.createElement("option")
-    option.value = colors
-    option.textContent = colors
-    select.appendChild(option)
+    for (let i = 0; i < colors.length; i++) {
+      const option = document.createElement("option");
+      option.value = colors[i];
+      option.textContent = colors[i];
+      select.appendChild(option);
+    }
   }
 }
