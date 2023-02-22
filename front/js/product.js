@@ -94,7 +94,7 @@ if (button != null) {
       color : color,
       price : price,
       // probleme avec price qui ne peut pas être récupéré
-      quantity : number(quantity),
+      quantity : Number(quantity),
       // pour avoir une string et non un "nombre"
     }
     localStorage.setItem(id, JSON.stringify(data))
