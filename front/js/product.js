@@ -1,14 +1,18 @@
-const queryString = window.location.search;
+const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 // on cherche à avoir l'id de chaque "kanap" puisqu'ils ont tous la même url.
-const productId = urlParams.get("id")
+const id = urlParams.get("id")
+if (id != null) {
+  let itemPrice = 0
+  let imgUrl, altText, articleName
+}
 
 // requete au serveur pour avoir plus d'infos
 
-fetch('http://localhost:3000/api/products/&{id}')
+fetch(`http://localhost:3000/api/products/${id}`)
 // string interpolation pour id
-.then(response => response.json())
-.then(res => handleData(res))
+.then((response) => response.json())
+.then((res) => handleData(res))
 
 function handleData(kanap) {
   const altTxt = kanap.altTxt
@@ -17,11 +21,18 @@ function handleData(kanap) {
   const imageUrl = kanap.imageUrl
   const name = kanap.name
   const price = kanap.price
-  const _id = kanap._id
+  // const _id = kanap._id
+
+  itemPrice = price
+  imgUrl = imageUrl
+  altText = altTxt
+  articleName = name
 
   makeImage(imageUrl, altTxt)
-  makeTilte(name)
+  makeTitle(name)
   makePrice(price)
+  makeDescription(description)
+  makeColors(colors)
 }
 
 function makeImage(imageUrl, altTxt) {
@@ -42,4 +53,21 @@ function makeTitle(name){
 function makePrice(price) {
   const span = document.querySelector("#price")
   if(span != null) span.textContent = price
+}
+
+function makeDescription(description) {
+  const p = document.querySelector("#description")
+  if (p != null) p.textContent = description
+}
+
+// pour chaque valeur il faut créer une option avec value + text 
+function makeColors(colors){
+  // select = menu déroulant
+  const select = document.querySelector("#colors")
+  if (select != null) {
+    const option = document.createElement("option")
+    option.value = colors
+    option.textContent = colors
+    select.appendChild(option)
+  }
 }
