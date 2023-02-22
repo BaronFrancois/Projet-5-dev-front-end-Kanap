@@ -2,7 +2,9 @@ const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 // on cherche à avoir l'id de chaque "kanap" puisqu'ils ont tous la même url.
 const id = urlParams.get("id")
+// création de cette variable pour return prix
 if (id != null) {
+  // let et non const car on ne peut pas le réassigner
   let itemPrice = 0
   let imgUrl, altText, articleName
 }
@@ -23,6 +25,7 @@ function handleData(kanap) {
   const price = kanap.price
   // const _id = kanap._id
 
+  // ajout pour définir item price pour const data
   itemPrice = price
   imgUrl = imageUrl
   altText = altTxt
@@ -72,4 +75,35 @@ function makeColors(colors){
       select.appendChild(option);
     }
   }
+}
+// https://developer.mozilla.org/fr/docs/Web/API/EventTarget/addEventListener
+// quand on clique sur ajouter au panier, on récupere les données et on crée un objet qui avec l'id, le prix , la couleur, la quantité (?)
+
+const button = document.querySelector("#addToCart")
+if (button != null) {
+  button.addEventListener("click", (e) => {
+    const color = document.querySelector("#colors").value
+    const quantity = document.querySelector("#quantity").value
+    if (color == null || color === "" || quantity == null || quantity == 0 ) {
+      // ici nous mettons quantity == 0 et non quantity === 0 car c'est une string, le === est trop strict pour que ça fonctionne.
+      alert("Veuillez selectionner une couleur et une quantité s'il vous plait")
+    }
+    // SetItem permets d'enregistrer des params dans le localStorage de chrome (comme une clé)en mémoire = id / couleur/ prix / quantité (?)
+    const data = {
+      id: id,
+      color : color,
+      price : price,
+      // probleme avec price qui ne peut pas être récupéré
+      quantity : number(quantity),
+      // pour avoir une string et non un "nombre"
+    }
+    localStorage.setItem(id, JSON.stringify(data))
+    // erreur localStorage ne peut pas enregistrer des objet => il faut les tranformer en string. (json.stringify)
+    // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+
+    // pour aller vers cart.html on peut utiliser window.location.href 
+    // https://stackoverflow.com/questions/7077770/window-location-href-and-window-open-methods-in-javascript
+    // Il faudrait créer le lien local (?)
+    window.location.href = "cart.html"
+  })
 }
