@@ -22,25 +22,25 @@ fetch('http://localhost:3000/api/products')
 // : "107fb5b75607497b96722bda5b504926"
 function kanaps(data){
 // console.log(kanaps) ne pas commiter de console.log
-for (let i = 0; i < data.length; i++) {
-  const kanap = data[i];
-  const _id = kanap._id;
-  const imageUrl = kanap.imageUrl;
-  const altTxt = kanap.altTxt;
-  const name = kanap.name;
-  const description = kanap.description;
-  
-  const image = makeImage(imageUrl, altTxt)
-  const anchor = makeAnchor(_id)
-  // ce anchor est propre à cette fonction
-  const article = makeArticle()
-  const h3 = makeH3(name)
-  const p = makeParagraph(description)
-  
-  article.appendChild(image)
-  article.appendChild(h3)
-  article.appendChild(p)
-  appendArticleToAnchor(anchor,article)
+  for (let i = 0; i < data.length; i++) {
+    const kanap = data[i];
+    const _id = kanap._id;
+    const imageUrl = kanap.imageUrl;
+    const altTxt = kanap.altTxt;
+    const name = kanap.name;
+    const description = kanap.description;
+    
+    const image = makeImage(imageUrl, altTxt)
+    const anchor = makeAnchor(_id)
+    // ce anchor est propre à cette fonction
+    const article = makeArticle()
+    const h3 = makeH3(name)
+    const p = makeParagraph(description)
+    
+    article.appendChild(image)
+    article.appendChild(h3)
+    article.appendChild(p)
+    appendArticleToAnchor(anchor,article)
   // utiliser f2 pour renommer tout les mêmes élements
   }
 }

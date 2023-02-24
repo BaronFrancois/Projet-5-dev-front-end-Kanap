@@ -42,10 +42,16 @@ function makeImage(imageUrl, altTxt) {
   const image = document.createElement("imag")
   image.src = imageUrl
   image.alt = altTxt
-  // j'aurais pu faire une appenfChhild uniquement
+  // j'aurais pu faire une appendChild uniquement
   const parent = document.querySelector(".item__img")
   // erreur sur l'objet qui peut être "nul" donc je met égalité lache = si parent est non défini
   if (parent !=null) parent.appendChild(image)
+}
+// Setion mentorat du 23/02/2023
+function setTextContent(cssSelector="",value=""){
+  if (cssSelector.length == 0) return;
+  const el = document.querySelector(cssSelector);
+  if(el != null) el.textContent = value;
 }
 
 function makeTitle(name){
@@ -87,6 +93,8 @@ if (button != null) {
     if (color == null || color === "" || quantity == null || quantity == 0 ) {
       // ici nous mettons quantity == 0 et non quantity === 0 car c'est une string, le === est trop strict pour que ça fonctionne.
       alert("Veuillez selectionner une couleur et une quantité s'il vous plait")
+      return
+      // pour éviter de continuer si c'est null
     }
     // SetItem permets d'enregistrer des params dans le localStorage de chrome (comme une clé)en mémoire = id / couleur/ prix / quantité (?)
     const data = {
@@ -96,6 +104,9 @@ if (button != null) {
       // probleme avec price qui ne peut pas être récupéré
       quantity : Number(quantity),
       // pour avoir une string et non un "nombre"
+      imageUrl : imgUrl,
+      altTxt : altText,
+      name : articleName,
     }
     localStorage.setItem(id, JSON.stringify(data))
     // erreur localStorage ne peut pas enregistrer des objet => il faut les tranformer en string. (json.stringify)
